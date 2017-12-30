@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  aria2:
+    image: aria2-ariang-docker:latest
+    ports:
+      # - "80:80"
+      # - "443:443"
+      - "6801:6800"
+    volumes:
+      - /mnt/data/nas_data:/data
+      - aria2-conf:/root/conf
+    environment:
+      - VIRTUAL_HOST=ariang.zgray.com
+    restart: always
+    network_mode: bridge
+  webdav:
+    image: webdav:latest
+    volumes_from:
+      - aria2
+    ports:
+      - "8000:80"
+    links:
+      - aria2
+    restart: always
+volumes:
+  aria2-conf:
