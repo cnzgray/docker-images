@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  db:
+    image: mysql:5.6
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password123!@#
+      MYSQL_DATABASE: stone_master
+      MYSQL_USER: stone_master
+      MYSQL_PASSWORD: stone_master
+volumes:
+  mysql_data:
