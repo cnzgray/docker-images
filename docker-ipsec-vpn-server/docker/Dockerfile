@@ -2,11 +2,11 @@ FROM debian:jessie
 MAINTAINER Jordi Gimenez <info@mobilejazz.com>
 
 ENV REFRESHED_AT 2017-10-13
-ENV SWAN_VER 3.21
+ENV SWAN_VER 3.23
 
 WORKDIR /opt/src
 
-RUN sed -i "s/httpredir\.debian\.org/ftp.us.debian.org/g" /etc/apt/sources.list \
+RUN sed -i "s/httpredir\.debian\.org/mirrors.163.com/g" /etc/apt/sources.list \
     && apt-get -yqq update \
     && DEBIAN_FRONTEND=noninteractive apt-get -yqq --no-install-recommends install \
          wget dnsutils openssl ca-certificates kmod \
