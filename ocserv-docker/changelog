@@ -1,0 +1,52 @@
+2016.09.02
+ * 集成服务器 DNS, 解决 CDN 方面的问题, 使用 VPN 内网解决 DNS 大问题. @zen
+ * 集成 radius 的编译 @zen
+ 
+2016.07.23
+ * 试验中的使用证书登陆代替密码登陆 (thanks @zen9073)
+ * 使用脚本在每次构建的时候生成全新的密钥. 如果要更换客户端密钥会有一些麻烦.
+
+2016.07.04
+ * 更新到 ocserv 0.11.3
+ * 调整编译脚本, 增加 lz4 支持
+ * 更新 no-route
+ * no-route 本地局域网 192.168.0.0 地址. 方便本地的开发
+ * 更新文档, 增加 build 的使用
+
+2015.11.08
+ * 使用 no-route, 并且扩展到 200 条 (thanks https://github.com/CNMan/ocserv-cn-no-route)
+ * 更新 ocserv 配置文件适应 ocserv 0.10.9
+ * 调整 Dockerfile 以加速 docker build 的速度
+ * Building Image 过程中, 生成随机的 certs 信息
+
+2015.03.27
+ * 更新文档, 增加一行命令添加自定义用户名密码的
+
+2015.03.24
+ * 升级到 ocserv 0.10.1 并且更换调整配置文件. (应该兼容老版本, 没大改变) [wppurking/ocserv 已更新]
+ * 默认开打 talloc 编译参数
+ * 默认开启 LZS 压缩(LZ4 没有, 如果是 HTTP 都 Gzip 压缩过的请求有多大效果呢?待测试)
+ * 修复自动下载部署脚本无法解析 0.10.1 这样两位数字版本好的问题
+ 
+2014.12.06
+ * 指定所使用的 container 为 [ubuntu:trusty], 避免因使用 [ubuntu] 将所有 container 都下载下来
+ * 解决在编译安装 ocserv 0.8.8 时, libtalloc, libhttp-parser not found 问题; [libprotobuf-c was not found 还未>解决]
+
+2014.09.23
+ * 自动下载最新版本的 ocserv (thanks @catatnight)
+ * 自动创建 /dev/net/tun  (thanks @hongqn)
+
+2014.08.14
+ * 取消 wppurking/ocserv-base-lib, 改为由 docker hub 来进行 automate build
+
+2014.08.11
+ * 新增加 wppurking/ocserv-base-lib(base-lib), 仅仅将 ocserv 所需要的 lib 文件安装(依赖 Ubuntu:latest);
+ * 将生成 certs 所需要的 teamplate(Country 啊, Domain 啊等等信息) 抽取出来
+ * 修改 wppurking/ocserv 的 Dockerfile, 通过自动构建代替原来的手动构建
+ * 自动下载源代码进行编译安装 ocserv, 方便 ocserv 升级重新构建
+ * 每一次自动构建通过抽取出来的 template file 生成新 certs 
+
+2014.08.06
+ * 初始化这个项目, 使用手工创建了 wppurking/ocserv Box 
+ * 剥离出 ocserv 的配置文件 
+ * 达到第一个可以使用 docker run 的版本

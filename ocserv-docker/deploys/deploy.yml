@@ -1,0 +1,29 @@
+---
+- hosts: hk3
+  name: recompile and run ocserv
+  vars:
+    vpn_name: ocserv-docker
+    port: 8443
+
+  tasks:
+  - name: update git
+    git: repo=https://github.com/wppurking/ocserv-docker.git
+         dest=~/ocserv-docker
+         force=true
+
+  - name: rebuild docker
+    shell: docker build --no-cache -t {{ vpn_name }} .  chdir=~/ocserv-docker
+
+  - name: delete <none> img
+    shell: docker images | fgrep '<none>' | awk '{print $ 3}'  | xargs docker rmi
+    ignore_errors: true
+
+  - name: Stop old ocserv
+    shell: docker rm -vf {{ vpn_name }}
+    ignore_errors: true
+
+  - name: run new ocserv
+    shell: docker run -d --privileged --name {{ vpn_name }} -v ~/ocserv-docker/ocserv:/etc/ocserv -p {{ port }}:443/tcp {{ vpn_name }}
+
+  - name: move user.p12 to nginx share place
+    shell: docker run --rm ocserv-docker cat /opt/certs/user.p12 > /usr/share/nginx/html/user.p12
